@@ -1,9 +1,14 @@
 package br.com.weka.cluster.teste;
 
-import java.io.FileInputStream;
 
+
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
@@ -14,6 +19,8 @@ import br.com.weka.mineracao.Datawarehouse;
 import br.com.weka.mineracao.Mineracao;
 import br.com.weka.model.Estatistica;
 import br.com.weka.manipulador.*;
+import br.com.weka.model.Tupla;
+
 import java.util.Scanner;
 
 /**
@@ -28,10 +35,10 @@ public class TesteClusterizacao
     {
  
 //      clusterizacaoEspacial();
-//      clusterizacaoPorClusterEmVariosArquivos();
+//     clusterizacaoPorClusterEmVariosArquivos();
 //	    clusterizacaoTemporal();
-//	  	geraDataWareHouse();
-//      geraRankingIndicadores();
+//  	geraDataWareHouse();
+      geraRankingIndicadores();
 	  
     }
 
@@ -69,13 +76,38 @@ public class TesteClusterizacao
 		datawarehouse.geraDataWareHouse(manip.getDiretorioClustersTemporais(), manip.getArquivoDatawarehouse());
 	}
 	
-	public static void geraRankingIndicadores(){
+	public static void geraRankingIndicadores() throws IOException{
+		Manipulador manip = new Manipulador();
 		Mineracao mineracao;
+		List list = new ArrayList();
 		try {
 			mineracao = new Mineracao();
 			mineracao.startMineracao();
 			mineracao.ordenaPorRanking();
-			System.out.println("Ordenação: " + mineracao.getListaRankingIndicadores());
+			list = mineracao.getListaRankingIndicadores();
+			Iterator<Tupla> it = list.iterator();  
+			String valor;
+			try{
+
+				BufferedWriter StrW = new BufferedWriter(new FileWriter(manip.getArquivoRanking()));		
+				StrW.write("Indicador" + "," + "Quantidade de registros" + "," + "Quantidade de marcacoes" + "\n");
+				while (it.hasNext()) {
+					valor = String.valueOf(it.next());
+					StrW.write(valor + "\n");
+				}
+				StrW.close();
+				System.out.println("Arquivo com ranking gerado com sucesso!");
+				
+			}catch (FileNotFoundException ex)
+				{ 
+					ex.printStackTrace(); 
+				}
+					catch (IOException e)
+				{
+					e.printStackTrace(); 
+				}
+			
+			//System.out.println("Ordenacao: " + mineracao.getListaRankingIndicadores());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

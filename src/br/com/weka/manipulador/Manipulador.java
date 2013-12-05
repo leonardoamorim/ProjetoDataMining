@@ -18,6 +18,7 @@ public class Manipulador {
 	private String diretorioClustersTemporais;
 	private String diretorioDestinoDatawarehouse;
 	private String arquivoDatawarehouse;
+	private String arquivoRanking;
 		
 	public Manipulador() throws IOException {
 		Properties p = getProp();
@@ -28,9 +29,13 @@ public class Manipulador {
 		diretorioDestinoDatawarehouse = p.getProperty("prop.diretorio.destino.datawarehouse");
 		arquivoDatawarehouse = p.getProperty("prop.arquivo.datawarehouse");
 		diretorioClustersEspaciais = p.getProperty("prop.diretorio.destino.espacial.clusters");
+		arquivoRanking = p.getProperty("prop.arquivo.rankingindicadores");
 	}
-	
 		
+	public String getArquivoRanking() {
+		return arquivoRanking;
+	}
+
 	public String getArquivoPrincipal() {
 		return arquivoPrincipal;
 	}

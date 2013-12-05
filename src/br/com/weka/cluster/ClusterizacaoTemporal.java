@@ -45,7 +45,7 @@ public class ClusterizacaoTemporal {
 		for (int i=0; i <= 99; i++) {
 				Manipulador manip = new Manipulador();
 				FileReader reader = new FileReader(manip.getDiretorioClustersEspaciais()+"clusterizacao_espacial"+i+".arff");
-			    Instances instâncias = new Instances(reader);
+			    Instances instancias = new Instances(reader);
 			    /* Para clusterizacao temporal usando a interface grafica do Weka 
 			     * considerando apenas o atributo de tempo (dia) eh necessario
 			     * ignorar todos os atributos exceto o atributo dia;
@@ -76,17 +76,17 @@ public class ClusterizacaoTemporal {
 			    opcoes[1] = "1,2,3,4,5,6,8,9,10,11,12"; // deixando apenas os atributos dia (numero 7)
 			    Remove remove = new Remove(); // instanciando o filtro                    
 			    remove.setOptions(opcoes); // setando as opcoes                    
-			    remove.setInputFormat(instâncias); // informando o filtro sobre a base de dados apos setar as opcoes        
+			    remove.setInputFormat(instancias); // informando o filtro sobre a base de dados apos setar as opcoes        
 			    
 			    // Abaixo eh criado uma nova instancia que guardara o resultado do filtro com o intuito
-			    // de preservar o valor de instâncias que sera usado logo a frente no codigo
-			    Instances newData = Filter.useFilter(instâncias, remove);  // aplicando o filtro
+			    // de preservar o valor de instancias que sera usado logo a frente no codigo
+			    Instances newData = Filter.useFilter(instancias, remove);  // aplicando o filtro
 		
 			    // Criamos o agrupamento usando o algoritmo SimpleKMeans com metodo de distancia Euclidiana
 			    SimpleKMeans agrupamento = new SimpleKMeans(); 
 				EuclideanDistance ed = new EuclideanDistance();
 				
-				//Definindo como será feita a clusterização
+				//Definindo como sera feita a clusterizacao
 			    agrupamento.setNumClusters(10); //Sao criados 10 clusters considerando apenas 1 mes (30 dias), o intervalo sera de mais ou menos 3 em 3 dias
 			    
 			    // Configuracoes padroes da interface grafica do Weka
@@ -104,12 +104,12 @@ public class ClusterizacaoTemporal {
 			    
 			    StringBuffer textoBuffer = new StringBuffer();
 			    
-			    // Aqui eh mostrado a que cluster pertence cada instância
+			    // Aqui eh mostrado a que cluster pertence cada instancia
 			    // E o resultado eh descarregado em um arquivo
 			    for(int inst=0;inst<newData.numInstances();inst++)
 			    {
 			    	Instance instancia = newData.instance(inst);
-			    	Instance teste = instâncias.instance(inst);
+			    	Instance teste = instancias.instance(inst);
 			        int cluster = (int)(agrupamento.clusterInstance(instancia));
 			        textoBuffer.append(teste+","+cluster + " \n");	
 			    }

@@ -17,7 +17,7 @@ public class ClusterizacaoEspacial {
 
 	public void clusterizar(String arquivoOrigem, String arquivoDestino)  throws Exception{
 		FileReader reader = new FileReader(arquivoOrigem);
-	    Instances instâncias = new Instances(reader);
+	    Instances instancias = new Instances(reader);
 	    
 	    /* Para clusterizacao espacial usando a interface grafica do Weka 
 	     * considerando apenas os atributos coordenada x e y eh necessario
@@ -48,11 +48,11 @@ public class ClusterizacaoEspacial {
 	    opcoes[1] = "1,2,3,4,5,6,7,8,9,10"; // deixando apenas os atributos de coordenadas
 	    Remove remove = new Remove();       // instanciando o filtro
 	    remove.setOptions(opcoes);          // setando as opcoes
-	    remove.setInputFormat(instâncias);  // informando o filtro sobre a base de dados apos setar as opcoes
+	    remove.setInputFormat(instancias);  // informando o filtro sobre a base de dados apos setar as opcoes
 	    
 	    // Abaixo eh criado uma nova instancia que guardara o resultado do filtro com o intuito
-	    // de preservar o valor de instâncias que sera usado logo a frente no codigo
-	    Instances newData = Filter.useFilter(instâncias, remove);   // aplicando o filtro
+	    // de preservar o valor de instancias que sera usado logo a frente no codigo
+	    Instances newData = Filter.useFilter(instancias, remove);   // aplicando o filtro
 	    
 	    // Criamos o agrupamento usando o algoritmo SimpleKMeans com metodo de distancia Euclidiana
 	    SimpleKMeans agrupamento = new SimpleKMeans();
@@ -81,12 +81,12 @@ public class ClusterizacaoEspacial {
 
 	    StringBuffer textoBuffer = new StringBuffer();
 	    
-	    // Aqui eh mostrado a que cluster pertence cada instância
+	    // Aqui eh mostrado a que cluster pertence cada instancia
 	    // E o resultado eh descarregado em um arquivo
 	    for(int inst=0;inst<newData.numInstances();inst++)
 	    {
 	    	Instance instancia = newData.instance(inst);
-	    	Instance teste = instâncias.instance(inst);
+	    	Instance teste = instancias.instance(inst);
 	        int cluster = (int)(agrupamento.clusterInstance(instancia));
 	        textoBuffer.append(inst+","+teste+","+cluster + " \n");	
 	    }
@@ -99,9 +99,9 @@ public class ClusterizacaoEspacial {
   
             writer.flush();  
             writer.close();  
-            System.out.println("Clusterização Espacial realizada com sucesso!");
+            System.out.println("Clusterizacao Espacial realizada com sucesso!");
         } catch (Exception e) {  
-        	System.out.println("Falha na clusterização Espacial!");
+        	System.out.println("Falha na clusterizacao Espacial!");
             e.printStackTrace();  
         } 
 	}

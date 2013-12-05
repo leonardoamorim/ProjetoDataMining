@@ -41,7 +41,10 @@ public class Tupla {
 	}
 
 	public String toString(){
-		return "{ " + indicador + ", " + qtdRegistros + ", " + qtdMarcadores + " }";
+		return String.valueOf(getIndicador()) + 
+				"," + String.valueOf(getQtdRegistros()) + "," + 
+				String.valueOf(getQtdMarcadores());
+		//return "{ " + indicador + ", " + qtdRegistros + ", " + qtdMarcadores + " }";
 	}
 	
 }
