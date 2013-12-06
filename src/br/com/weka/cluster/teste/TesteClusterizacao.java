@@ -2,9 +2,11 @@ package br.com.weka.cluster.teste;
 
 
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,7 +40,9 @@ public class TesteClusterizacao
 //     clusterizacaoPorClusterEmVariosArquivos();
 //	    clusterizacaoTemporal();
 //  	geraDataWareHouse();
-      geraRankingIndicadores();
+//      geraRankingIndicadores();
+//	  System.out.println(somaTotalQtdMarcadores());
+//	  System.out.println(getQtdMarcadores("7"));
 	  
     }
 
@@ -90,7 +94,7 @@ public class TesteClusterizacao
 			try{
 
 				BufferedWriter StrW = new BufferedWriter(new FileWriter(manip.getArquivoRanking()));		
-				StrW.write("Indicador" + "," + "Quantidade de registros" + "," + "Quantidade de marcacoes" + "\n");
+				//StrW.write("Indicador" + "," + "Quantidade de registros" + "," + "Quantidade de marcacoes" + "\n");
 				while (it.hasNext()) {
 					valor = String.valueOf(it.next());
 					StrW.write(valor + "\n");
@@ -102,7 +106,7 @@ public class TesteClusterizacao
 				{ 
 					ex.printStackTrace(); 
 				}
-					catch (IOException e)
+				catch (IOException e)
 				{
 					e.printStackTrace(); 
 				}
@@ -111,6 +115,66 @@ public class TesteClusterizacao
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static int somaTotalQtdMarcadores() throws IOException {
+		int soma = 0;
+		Manipulador manip = new Manipulador();
+		try {
+			
+			BufferedReader StrR = new BufferedReader(new FileReader(manip.getArquivoRanking()));
+			String linha = StrR.readLine();
+ 			while(linha != null) {
+				 //  String indicador = linha.substring(0, linha.indexOf(','));
+				 //  String qtdRegistros = linha.substring(linha.indexOf(',') + 1, linha.lastIndexOf(','));
+				   String qtdMarcacoes = linha.substring(linha.lastIndexOf(',') + 1, linha.length());
+				   soma = soma +  Integer.parseInt(qtdMarcacoes);
+				   linha = StrR.readLine();
+			}
+ 			StrR.close();
+
+		}catch (FileNotFoundException ex) {
+			ex.printStackTrace();
+		} 
+		catch (IOException e){
+			e.printStackTrace();
+		}
+		return soma;
+	}
+	
+	public static int getQtdMarcadores(String indicador) throws IOException {
+		int qtd = 0;
+		Manipulador manip = new Manipulador();
+		try {
+			
+			BufferedReader StrR = new BufferedReader(new FileReader(manip.getArquivoRanking()));
+			String linha = StrR.readLine();
+			String ind, qtdMarcacoes;
+			
+			ind = linha.substring(0, linha.indexOf(','));
+			
+			while(linha != null)
+			{
+				ind = linha.substring(0, linha.indexOf(','));
+				if(ind.equals(indicador) == true) {
+					qtdMarcacoes = linha.substring(linha.lastIndexOf(',') + 1, linha.length());
+					qtd = Integer.parseInt(qtdMarcacoes);
+					linha = null;
+				}
+				else linha = StrR.readLine();
+					
+			}
+
+			StrR.close();
+
+		}catch (FileNotFoundException ex) {
+			ex.printStackTrace();
+		} 
+		catch (IOException e){
+			e.printStackTrace();
+		}
+		return qtd;
+
 	}
 	
 }
