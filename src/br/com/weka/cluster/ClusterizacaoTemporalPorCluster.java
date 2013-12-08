@@ -59,7 +59,7 @@ public class ClusterizacaoTemporalPorCluster {
     }  
     
     public void criarArquivo(List<Estatistica> lista, int posicao) throws IOException{
-    	Manipulador manip = new Manipulador();
+    	ManipuladorProperties manip = new ManipuladorProperties();
     	StringBuffer textoBuffer = new StringBuffer();
     	// add cabecalho do arquivo.
 	    textoBuffer.append("@relation arquivo \n \n"+

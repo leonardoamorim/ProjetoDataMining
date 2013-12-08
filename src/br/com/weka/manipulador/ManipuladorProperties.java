@@ -9,7 +9,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-public class Manipulador {
+public class ManipuladorProperties {
 
 	private String arquivoPrincipal;
 	private String arquivoEspacial;
@@ -20,7 +20,7 @@ public class Manipulador {
 	private String arquivoDatawarehouse;
 	private String arquivoRanking;
 		
-	public Manipulador() throws IOException {
+	public ManipuladorProperties() throws IOException {
 		Properties p = getProp();
 		arquivoPrincipal = p.getProperty("prop.arquivo.principal");
 		arquivoEspacial = p.getProperty("prop.arquivo.espacial");

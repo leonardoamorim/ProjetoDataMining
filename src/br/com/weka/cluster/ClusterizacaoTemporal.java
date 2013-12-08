@@ -18,7 +18,7 @@ import weka.core.Instance;
 import weka.core.Instances;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.Remove;
-import br.com.weka.manipulador.Manipulador;
+import br.com.weka.manipulador.ManipuladorProperties;
 import br.com.weka.model.Estatistica;
 
 public class ClusterizacaoTemporal {
@@ -43,7 +43,7 @@ public class ClusterizacaoTemporal {
 
 	public void clusterizar()  throws Exception{
 		for (int i=0; i <= 99; i++) {
-				Manipulador manip = new Manipulador();
+				ManipuladorProperties manip = new ManipuladorProperties();
 				FileReader reader = new FileReader(manip.getDiretorioClustersEspaciais()+"clusterizacao_espacial"+i+".arff");
 			    Instances instancias = new Instances(reader);
 			    /* Para clusterizacao temporal usando a interface grafica do Weka 
