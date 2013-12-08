@@ -34,8 +34,10 @@ public class TesteClusterizacao
 //	  BigDecimal calcularSuporte = calcularSuporte("1");
 //	  System.out.println(calcularSuporte);
 	  
-	  BigDecimal calcularSuporte2 = calcularSuporte("1","2");
-	  System.out.println(calcularSuporte2);
+//	  BigDecimal calcularSuporte2 = calcularSuporte("1","2");
+//	  System.out.println(calcularSuporte2);
+	  
+	  geraCalculoSuporteComTodosIndicadores();
 	  
     }
 
@@ -101,6 +103,11 @@ public class TesteClusterizacao
 		Suporte s = new Suporte();
 		return s.calcularSuporte(indicador1, indicador2);
 
+	}
+	
+	public static void geraCalculoSuporteComTodosIndicadores() throws IOException{
+		Suporte s = new Suporte();
+		s.geraCalculoSuporteComTodosIndicadores();
 	}
 	
 }

@@ -19,19 +19,26 @@ public class ManipuladorProperties {
 	private String diretorioDestinoDatawarehouse;
 	private String arquivoDatawarehouse;
 	private String arquivoRanking;
-		
+	private String arquivoCalculoSuporte;
+
 	public ManipuladorProperties() throws IOException {
 		Properties p = getProp();
 		arquivoPrincipal = p.getProperty("prop.arquivo.principal");
 		arquivoEspacial = p.getProperty("prop.arquivo.espacial");
-		diretorioDestinoArquivoEspacial = p.getProperty("prop.diretorio.destino.espacial");
-		diretorioClustersTemporais = p.getProperty("prop.diretorio.destino.temporal.clusters");
-		diretorioDestinoDatawarehouse = p.getProperty("prop.diretorio.destino.datawarehouse");
+		diretorioDestinoArquivoEspacial = p
+				.getProperty("prop.diretorio.destino.espacial");
+		diretorioClustersTemporais = p
+				.getProperty("prop.diretorio.destino.temporal.clusters");
+		diretorioDestinoDatawarehouse = p
+				.getProperty("prop.diretorio.destino.datawarehouse");
 		arquivoDatawarehouse = p.getProperty("prop.arquivo.datawarehouse");
-		diretorioClustersEspaciais = p.getProperty("prop.diretorio.destino.espacial.clusters");
+		diretorioClustersEspaciais = p
+				.getProperty("prop.diretorio.destino.espacial.clusters");
 		arquivoRanking = p.getProperty("prop.arquivo.rankingindicadores");
+		arquivoCalculoSuporte = p
+				.getProperty("prop.arquivo.calculoSuporteTodosIndicadores");
 	}
-		
+
 	public String getArquivoRanking() {
 		return arquivoRanking;
 	}
@@ -64,6 +71,14 @@ public class ManipuladorProperties {
 		return arquivoDatawarehouse;
 	}
 
+	public String getArquivoCalculoSuporte() {
+		return arquivoCalculoSuporte;
+	}
+
+	public void setArquivoCalculoSuporte(String arquivoCalculoSuporte) {
+		this.arquivoCalculoSuporte = arquivoCalculoSuporte;
+	}
+
 	public static Properties getProp() throws IOException {
 		Properties props = new Properties();
 		FileInputStream file = new FileInputStream(
@@ -72,5 +87,5 @@ public class ManipuladorProperties {
 		return props;
 
 	}
-	
+
 }
