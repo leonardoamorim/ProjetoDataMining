@@ -9,6 +9,7 @@ import br.com.weka.cluster.ClusterizacaoEspacial;
 import br.com.weka.cluster.ClusterizacaoTemporal;
 import br.com.weka.cluster.ClusterizacaoTemporalPorCluster;
 import br.com.weka.manipulador.ManipuladorProperties;
+import br.com.weka.mineracao.Confianca;
 import br.com.weka.mineracao.Datawarehouse;
 import br.com.weka.mineracao.Mineracao;
 import br.com.weka.mineracao.Suporte;
@@ -37,9 +38,11 @@ public class TesteClusterizacao
 //	  BigDecimal calcularSuporte2 = calcularSuporte("1","2");
 //	  System.out.println(calcularSuporte2);
 	  
-	  geraCalculoSuporteComTodosIndicadores();
+//	  geraCalculoSuporteComTodosIndicadores();
+	  geraCalculoConfiancaComTodosIndicadores();
 	  
     }
+
 
 	private static void clusterizacaoTemporal() {
 		ClusterizacaoTemporal ct = new ClusterizacaoTemporal();
@@ -108,6 +111,15 @@ public class TesteClusterizacao
 	public static void geraCalculoSuporteComTodosIndicadores() throws IOException{
 		Suporte s = new Suporte();
 		s.geraCalculoSuporteComTodosIndicadores();
+	}
+	
+	private static void geraCalculoConfiancaComTodosIndicadores() {
+		Confianca c = new Confianca();
+			try {
+				c.geraCalculoConfiacaComTodosIndicadores();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 	}
 	
 }

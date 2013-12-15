@@ -20,6 +20,7 @@ public class ManipuladorProperties {
 	private String arquivoDatawarehouse;
 	private String arquivoRanking;
 	private String arquivoCalculoSuporte;
+	private String arquivoCalculoConfianca;
 
 	public ManipuladorProperties() throws IOException {
 		Properties p = getProp();
@@ -37,6 +38,8 @@ public class ManipuladorProperties {
 		arquivoRanking = p.getProperty("prop.arquivo.rankingindicadores");
 		arquivoCalculoSuporte = p
 				.getProperty("prop.arquivo.calculoSuporteTodosIndicadores");
+		arquivoCalculoConfianca = p
+				.getProperty("prop.arquivo.calculoConfiancaComTodosIndicadores");
 	}
 
 	public String getArquivoRanking() {
@@ -75,10 +78,10 @@ public class ManipuladorProperties {
 		return arquivoCalculoSuporte;
 	}
 
-	public void setArquivoCalculoSuporte(String arquivoCalculoSuporte) {
-		this.arquivoCalculoSuporte = arquivoCalculoSuporte;
+	public String getArquivoCalculoConfianca() {
+		return arquivoCalculoConfianca;
 	}
-
+	
 	public static Properties getProp() throws IOException {
 		Properties props = new Properties();
 		FileInputStream file = new FileInputStream(
