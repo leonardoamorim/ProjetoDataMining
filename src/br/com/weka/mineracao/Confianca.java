@@ -1,6 +1,7 @@
 package br.com.weka.mineracao;
 
 import java.io.BufferedWriter;
+
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,11 +9,12 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 import br.com.weka.manipulador.ManipuladorProperties;
+import br.com.weka.model.Indicadores;
 
 public class Confianca {
 
 
-	public BigDecimal calcularConfianca(String indicador1, String indicador2) throws IOException {
+	public  BigDecimal calcularConfianca(String indicador1, String indicador2) throws IOException {
 		Suporte suporte = new Suporte();
 		BigDecimal suporte1 = suporte.calcularSuporte(indicador1);
 		BigDecimal suporte1AndSuporte2 = suporte.calcularSuporte(indicador1, indicador2);
@@ -48,7 +50,7 @@ public class Confianca {
 					}
 				}
 				StrW.close();
-				System.out.println("Arquivo com todas as confiaças gerada com sucesso!");
+				System.out.println("Arquivo com todas as confiancas gerada com sucesso!");
 				
 			}catch (FileNotFoundException ex)
 				{ 

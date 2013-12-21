@@ -21,6 +21,7 @@ public class ManipuladorProperties {
 	private String arquivoRanking;
 	private String arquivoCalculoSuporte;
 	private String arquivoCalculoConfianca;
+	private String arquivoMediaDasConfiancas;
 
 	public ManipuladorProperties() throws IOException {
 		Properties p = getProp();
@@ -40,6 +41,11 @@ public class ManipuladorProperties {
 				.getProperty("prop.arquivo.calculoSuporteTodosIndicadores");
 		arquivoCalculoConfianca = p
 				.getProperty("prop.arquivo.calculoConfiancaComTodosIndicadores");
+		arquivoMediaDasConfiancas = p.getProperty("prop.arquivo.mediaDaConfianca");
+	}
+
+	public String getArquivoMediaDasConfiancas() {
+		return arquivoMediaDasConfiancas;
 	}
 
 	public String getArquivoRanking() {

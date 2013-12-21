@@ -98,6 +98,33 @@ public class Mineracao {
 		return qtdeMarcacao;
 	}
 	
+	public String[] geraRankingDezMais() throws IOException {
+		String [] indicadores = new String[10];
+		ManipuladorProperties manip = new ManipuladorProperties();
+		
+		try{
+			BufferedReader StrW = new BufferedReader(new FileReader(manip.getArquivoRanking()));
+			List list = new ArrayList();
+			list = getListaRankingIndicadores();
+			Iterator<Tupla> it = list.iterator();  
+
+			for(int t=0; t<10; t++) {
+				indicadores[t] = String.valueOf(it.next()).substring(0, 2);
+			}
+			StrW.close();
+			System.out.println("Arquivo lido com sucesso!");
+			
+		}catch (FileNotFoundException ex)
+		{ 
+			ex.printStackTrace(); 
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace(); 
+		}
+		return indicadores;
+	}
+	
 	public void geraArquivoComRankingIndicadores() throws IOException{
 		ManipuladorProperties manip = new ManipuladorProperties();
 		List list = new ArrayList();
