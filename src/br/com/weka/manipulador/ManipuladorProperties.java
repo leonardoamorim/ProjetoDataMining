@@ -43,6 +43,8 @@ public class ManipuladorProperties {
 				.getProperty("prop.arquivo.calculoConfiancaComTodosIndicadores");
 		arquivoMediaDasConfiancas = p.getProperty("prop.arquivo.mediaDaConfianca");
 	}
+	
+	
 
 	public String getArquivoMediaDasConfiancas() {
 		return arquivoMediaDasConfiancas;

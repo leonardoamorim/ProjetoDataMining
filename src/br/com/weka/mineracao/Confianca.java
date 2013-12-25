@@ -2,6 +2,7 @@ package br.com.weka.mineracao;
 
 import java.io.BufferedWriter;
 
+
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,7 +10,6 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 import br.com.weka.manipulador.ManipuladorProperties;
-import br.com.weka.model.Indicadores;
 
 public class Confianca {
 
