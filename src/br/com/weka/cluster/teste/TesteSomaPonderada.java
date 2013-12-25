@@ -1,6 +1,7 @@
 package br.com.weka.cluster.teste;
 
 import java.io.BufferedWriter;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -19,168 +20,48 @@ import br.com.weka.manipulador.ManipuladorProperties;
 
 public class TesteSomaPonderada {
 	
-
-
-
 	public static void main(String []args) throws IOException {
 		
+		//Aplicar Soma Ponderada com Gestor de Perfil Ambiental
 		ManipuladorProperties manip = new ManipuladorProperties();
 		SomaPonderada sp = new SomaPonderada(manip.getArquivoMediaDasConfiancas());
 
 		
     	ArrayList<RankingIndicador> linhaRanking = new ArrayList<RankingIndicador>();
     	ArrayList<RankingIndicador> lr = new ArrayList<RankingIndicador>();
-    	ArrayList<RankingIndicador> listaNormalizada = new ArrayList<RankingIndicador>();
 
-    	RankingIndicador [] ranking = new RankingIndicador[10];
-    	RankingIndicador [] novoRanking = new RankingIndicador[10];
-    	RankingIndicador [] rankingNormalizado = new RankingIndicador[10];
-
-    
-
-    	
     	linhaRanking = sp.getListaRankingIndicador();
     	lr = sp.minimizarIndicadoresSociais(linhaRanking);
     	
-    	for(int i=0;i<lr.size();i++){ 
-    		novoRanking[i] = new RankingIndicador(
-    				lr.get(i).getIndicador(),
-    				lr.get(i).getMediaConfiancaAgua(),
-    				lr.get(i).getMediaConfiancaAr(),
-    				lr.get(i).getMediaConfiancaSolo(),
-    				lr.get(i).getMediaConfiancaDesmatamento(),
-    				lr.get(i).getMediaConfiancaInvasaoAmbiental(),
-    				lr.get(i).getMediaConfiancaSeguranca(),
-    				lr.get(i).getMediaConfiancaEducacao(),
-    				lr.get(i).getMediaConfiancaSaude(),
-    				lr.get(i).getMediaConfiancaInfraestruturaUrbana(),
-    				lr.get(i).getMediaConfiancaInvasaoSocial()
-    				);
-    		} 
-    	
-    	// Perfil Gestor Ambiental
     	ArrayList<TuplaRankingIndicador> resultadoSPPA = new ArrayList<TuplaRankingIndicador>();
     	resultadoSPPA = sp.aplicarSomaPonderada(lr, new BigDecimal(0.14), new BigDecimal(0.14), new BigDecimal(0.14), 
     			new BigDecimal(0.14), new BigDecimal(0.14), new BigDecimal(0.07), new BigDecimal(0.07), 
     			new BigDecimal(0.07), new BigDecimal(0.07), new BigDecimal(0.07));
-    	
-    	for(int i=0; i < resultadoSPPA.size(); i++){
-    		System.out.println(resultadoSPPA.get(i));
-    	}
     	
     	System.out.println("Ranqueamento segundo perfil ambiental");
     	for(int i=0; i < sp.ranquear(resultadoSPPA).size(); i++) {
     		System.out.println(sp.ranquear(resultadoSPPA).get(i));
     	}
     	
-    	/*
-    	for(int i=0; i < lr.size();i++) {
-    		System.out.println(novoRanking[i]);
-    	}
+		//Aplicar Soma Ponderada com Gestor de Perfil Social
+    	SomaPonderada sp1 = new SomaPonderada(manip.getArquivoMediaDasConfiancas());
+    	ArrayList<RankingIndicador> linhaRanking2 = new ArrayList<RankingIndicador>();
+    	ArrayList<RankingIndicador> lr2 = new ArrayList<RankingIndicador>();
     	
-    	listaNormalizada = sp.normalizarListaMinimizada(lr);
-    	for(int i=0; i < listaNormalizada.size(); i++) {
-    		rankingNormalizado[i] = new RankingIndicador(
-    				listaNormalizada.get(i).getIndicador(),
-    				listaNormalizada.get(i).getMediaConfiancaAgua(),
-    				listaNormalizada.get(i).getMediaConfiancaAr(),
-    				listaNormalizada.get(i).getMediaConfiancaSolo(),
-    				listaNormalizada.get(i).getMediaConfiancaDesmatamento(),
-    				listaNormalizada.get(i).getMediaConfiancaInvasaoAmbiental(),
-    				listaNormalizada.get(i).getMediaConfiancaSeguranca(),
-    				listaNormalizada.get(i).getMediaConfiancaEducacao(),
-    				listaNormalizada.get(i).getMediaConfiancaSaude(),
-    				listaNormalizada.get(i).getMediaConfiancaInfraestruturaUrbana(),
-    				listaNormalizada.get(i).getMediaConfiancaInvasaoSocial()
-    				);
-    	}
+    	linhaRanking2 = sp1.getListaRankingIndicador();
     	
-    	for(int i=0; i < 10; i++) {
-    		System.out.println(rankingNormalizado[i].toString());
-    	}
+    	lr2 = sp1.minimizarIndicadoresAmbientais(linhaRanking2);
     	
-    	/*
-    	for(int i=0;i<linhaRanking.size();i++){ 
-    		ranking[i] = new RankingIndicador(
-    				linhaRanking.get(i).getIndicador(),
-    				linhaRanking.get(i).getMediaConfiancaAgua(),
-    				linhaRanking.get(i).getMediaConfiancaAr(),
-    				linhaRanking.get(i).getMediaConfiancaSolo(),
-    				linhaRanking.get(i).getMediaConfiancaDesmatamento(),
-    				linhaRanking.get(i).getMediaConfiancaInvasaoAmbiental(),
-    				linhaRanking.get(i).getMediaConfiancaSeguranca(),
-    				linhaRanking.get(i).getMediaConfiancaEducacao(),
-    				linhaRanking.get(i).getMediaConfiancaSaude(),
-    				linhaRanking.get(i).getMediaConfiancaInfraestruturaUrbana(),
-    				linhaRanking.get(i).getMediaConfiancaInvasaoSocial()
-    				);
-    		} 
+    	ArrayList<TuplaRankingIndicador> resultadoSPPS = new ArrayList<TuplaRankingIndicador>();
+    	resultadoSPPS = sp1.aplicarSomaPonderada(lr2, new BigDecimal(0.07), new BigDecimal(0.07), new BigDecimal(0.07), 
+    			new BigDecimal(0.07), new BigDecimal(0.07), new BigDecimal(0.14), new BigDecimal(0.14), 
+    			new BigDecimal(0.14), new BigDecimal(0.14), new BigDecimal(0.14));
 
- //   	for(int i=0; i < linhaRanking.size();i++) {
-//    		System.out.println(ranking[i]);
-  //  	}
-    	
-    	lr = sp.minimizarIndicadoresSociais(linhaRanking);
-    	
-    	for(int i=0;i<lr.size();i++){ 
-    		novoRanking[i] = new RankingIndicador(
-    				lr.get(i).getIndicador(),
-    				lr.get(i).getMediaConfiancaAgua(),
-    				lr.get(i).getMediaConfiancaAr(),
-    				lr.get(i).getMediaConfiancaSolo(),
-    				lr.get(i).getMediaConfiancaDesmatamento(),
-    				lr.get(i).getMediaConfiancaInvasaoAmbiental(),
-    				lr.get(i).getMediaConfiancaSeguranca(),
-    				lr.get(i).getMediaConfiancaEducacao(),
-    				lr.get(i).getMediaConfiancaSaude(),
-    				lr.get(i).getMediaConfiancaInfraestruturaUrbana(),
-    				lr.get(i).getMediaConfiancaInvasaoSocial()
-    				);
-    		} 
-
-    	for(int i=0; i < lr.size();i++) {
-    		System.out.println(novoRanking[i]);
+    	System.out.println("Ranqueamento segundo perfil social");
+    	for(int i=0; i < sp1.ranquear(resultadoSPPS).size(); i++) {
+    		System.out.println(sp1.ranquear(resultadoSPPS).get(i));
     	}
-    	
-    	*/
-    	
-    
-    	/*
-    	//Instanciar 10 objetos do tipo RankingIndicador
-    	for(int i=0;i<linhaRanking.size();i++){ 
-    		ranking[i] = new RankingIndicador(
-    				linhaRanking.get(i).getIndicador(),
-    				linhaRanking.get(i).getMediaConfiancaAgua(),
-    				linhaRanking.get(i).getMediaConfiancaAr(),
-    				linhaRanking.get(i).getMediaConfiancaSolo(),
-    				linhaRanking.get(i).getMediaConfiancaDesmatamento(),
-    				linhaRanking.get(i).getMediaConfiancaInvasaoAmbiental(),
-    				linhaRanking.get(i).getMediaConfiancaSeguranca(),
-    				linhaRanking.get(i).getMediaConfiancaEducacao(),
-    				linhaRanking.get(i).getMediaConfiancaSaude(),
-    				linhaRanking.get(i).getMediaConfiancaInfraestruturaUrbana(),
-    				linhaRanking.get(i).getMediaConfiancaInvasaoSocial()
-    				);
-    		} 
 
-    	for(int i=0; i < linhaRanking.size();i++) {
-    		System.out.println(ranking[i]);
-    	}
-    	
-    
-    	
-    	
-    	Collections.sort(lista, new TuplaRankingIndicadorComparator());
-    	System.out.println("Gestor Social");
-    	for(int i=0; i < lista.size(); i++) {
-    		System.out.println(lista.get(i));
-    	}
-    	*/
-
-  
-    	
-    	
-    	
     	
 	}
 }

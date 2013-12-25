@@ -209,6 +209,77 @@ public class SomaPonderada {
 	 		return novaLista;
 	 	}
 	 	
+	 	public ArrayList<RankingIndicador> minimizarIndicadoresAmbientais(ArrayList<RankingIndicador> lista) {
+	 		lista = getListaRankingIndicador();
+	 		
+	 		ArrayList<RankingIndicador> novaLista = new ArrayList<RankingIndicador>();
+	 		RankingIndicador[] ri = new RankingIndicador[10];
+	 		
+	 		BigDecimal maiorAgua,maiorAr,maiorSolo,
+	 					maiorDesmatamento,maiorInvasaoAmbiental;
+	 		
+	 		
+	 		BigDecimal[] agua = {lista.get(0).getMediaConfiancaAgua(), lista.get(1).getMediaConfiancaAgua(),
+	 				lista.get(2).getMediaConfiancaAgua(), lista.get(3).getMediaConfiancaAgua(),
+	 				lista.get(4).getMediaConfiancaAgua(), lista.get(5).getMediaConfiancaAgua(),
+	 				lista.get(6).getMediaConfiancaAgua(), lista.get(7).getMediaConfiancaAgua(),
+	 				lista.get(8).getMediaConfiancaAgua(), lista.get(9).getMediaConfiancaAgua()
+	 		};
+	 		
+	 		
+	 		BigDecimal[] ar = {lista.get(0).getMediaConfiancaAr(), lista.get(1).getMediaConfiancaAr(),
+	 				lista.get(2).getMediaConfiancaAr(), lista.get(3).getMediaConfiancaAr(),
+	 				lista.get(4).getMediaConfiancaAr(), lista.get(5).getMediaConfiancaAr(),
+	 				lista.get(6).getMediaConfiancaAr(), lista.get(7).getMediaConfiancaAr(),
+	 				lista.get(8).getMediaConfiancaAr(), lista.get(9).getMediaConfiancaAr()
+	 		};
+	 		
+	 		BigDecimal[] solo = {lista.get(0).getMediaConfiancaSolo(), lista.get(1).getMediaConfiancaSolo(),
+	 				lista.get(2).getMediaConfiancaSolo(), lista.get(3).getMediaConfiancaSolo(),
+	 				lista.get(4).getMediaConfiancaSolo(), lista.get(5).getMediaConfiancaSolo(),
+	 				lista.get(6).getMediaConfiancaSolo(), lista.get(7).getMediaConfiancaSolo(),
+	 				lista.get(8).getMediaConfiancaSolo(), lista.get(9).getMediaConfiancaSolo()
+	 		};
+	 		
+	 		BigDecimal[] desmatamento = {lista.get(0).getMediaConfiancaDesmatamento(), lista.get(1).getMediaConfiancaDesmatamento(),
+	 				lista.get(2).getMediaConfiancaDesmatamento(), lista.get(3).getMediaConfiancaDesmatamento(),
+	 				lista.get(4).getMediaConfiancaDesmatamento(), lista.get(5).getMediaConfiancaDesmatamento(),
+	 				lista.get(6).getMediaConfiancaDesmatamento(), lista.get(7).getMediaConfiancaDesmatamento(),
+	 				lista.get(8).getMediaConfiancaDesmatamento(), lista.get(9).getMediaConfiancaDesmatamento()
+	 		};
+	 		
+	 		BigDecimal[] invasaoAmbiental = {lista.get(0).getMediaConfiancaInvasaoAmbiental(), lista.get(1).getMediaConfiancaInvasaoAmbiental(),
+	 				lista.get(2).getMediaConfiancaInvasaoAmbiental(), lista.get(3).getMediaConfiancaInvasaoAmbiental(),
+	 				lista.get(4).getMediaConfiancaInvasaoAmbiental(), lista.get(5).getMediaConfiancaInvasaoAmbiental(),
+	 				lista.get(6).getMediaConfiancaInvasaoAmbiental(), lista.get(7).getMediaConfiancaInvasaoAmbiental(),
+	 				lista.get(8).getMediaConfiancaInvasaoAmbiental(), lista.get(9).getMediaConfiancaInvasaoAmbiental()
+	 		};
+	 		
+	 		maiorAgua = descobrirMaior(agua).round(new MathContext(4));
+	 		maiorAr = descobrirMaior(ar).round(new MathContext(4));
+	 		maiorSolo = descobrirMaior(solo).round(new MathContext(4));
+	 		maiorDesmatamento = descobrirMaior(desmatamento).round(new MathContext(4));
+	 		maiorInvasaoAmbiental = descobrirMaior(invasaoAmbiental).round(new MathContext(4));
+	 		
+            for (int i = 0; i < 10; i++) { 
+            	ri[i] = new RankingIndicador(
+            	lista.get(i).getIndicador(),
+             	maiorAgua.subtract(lista.get(i).getMediaConfiancaAgua()),
+            	maiorAr.subtract(lista.get(i).getMediaConfiancaAr()),
+            	maiorSolo.subtract(lista.get(i).getMediaConfiancaSolo()),
+            	maiorDesmatamento.subtract(lista.get(i).getMediaConfiancaDesmatamento()),
+            	maiorInvasaoAmbiental.subtract(lista.get(i).getMediaConfiancaInvasaoAmbiental()),
+            	lista.get(i).getMediaConfiancaSeguranca(),
+            	lista.get(i).getMediaConfiancaEducacao(),
+            	lista.get(i).getMediaConfiancaSaude(),
+            	lista.get(i).getMediaConfiancaInfraestruturaUrbana(),
+            	lista.get(i).getMediaConfiancaInvasaoSocial()
+            	);
+            	novaLista.add(ri[i]);
+            }  	 		
+	 		return novaLista;
+	 	}
+	 	
 	 	public ArrayList<TuplaRankingIndicador> aplicarSomaPonderada(ArrayList<RankingIndicador> lista,
 	 			BigDecimal pesoAgua, BigDecimal pesoAr, BigDecimal pesoSolo, BigDecimal pesoDesmatamento,
 	 			BigDecimal pesoInvasaoAmbiental,BigDecimal pesoSeguranca, BigDecimal pesoEducacao, BigDecimal pesoSaude, 
@@ -218,7 +289,6 @@ public class SomaPonderada {
 	 		ArrayList<RankingIndicador> listaNormalizada = new ArrayList<RankingIndicador>();
 	 		RankingIndicador [] rankingNormalizado = new RankingIndicador[10];
 	 		ArrayList<TuplaRankingIndicador> tri =  new ArrayList<TuplaRankingIndicador>();
-	 		TuplaRankingIndicador tupla = new TuplaRankingIndicador();
 	 		
 	 		BigDecimal resultado = new BigDecimal(0);
 	 		
