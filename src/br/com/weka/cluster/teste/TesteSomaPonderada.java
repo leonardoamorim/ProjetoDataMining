@@ -62,6 +62,21 @@ public class TesteSomaPonderada {
     		System.out.println(sp1.ranquear(resultadoSPPS).get(i));
     	}
 
+    	//Aplicar Soma Ponderada com Gestor de Perfil Hibrido
+    	SomaPonderada sp2 = new SomaPonderada(manip.getArquivoMediaDasConfiancas());
+    	ArrayList<RankingIndicador> linhaRanking3 = new ArrayList<RankingIndicador>();
     	
+    	linhaRanking3 = sp2.getListaRankingIndicador();
+    	
+    	ArrayList<TuplaRankingIndicador> resultadoSPPH = new ArrayList<TuplaRankingIndicador>();
+    	resultadoSPPH = sp2.aplicarSomaPonderada(linhaRanking3, new BigDecimal(0.02), new BigDecimal(0.02), 
+    			new BigDecimal(0.02), new BigDecimal(0.02), new BigDecimal(0.02), new BigDecimal(0.02), 
+    			new BigDecimal(0.02), new BigDecimal(0.02), new BigDecimal(0.02), new BigDecimal(0.02));
+    	
+    	System.out.println("Ranqueamento segundo perfil hibrido");
+    	for(int i=0; i < sp2.ranquear(resultadoSPPH).size(); i++) {
+    		System.out.println(sp2.ranquear(resultadoSPPH).get(i));
+    	}
+
 	}
 }

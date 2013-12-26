@@ -325,7 +325,7 @@ public class SomaPonderada {
 	    		
 
 	    		tri.add(new TuplaRankingIndicador(rankingNormalizado[i].getIndicador(),
-	    				resultado.setScale(4,RoundingMode.HALF_UP)));
+	    				resultado.setScale(8,RoundingMode.HALF_UP)));
 
 	    	}
 	 		return tri;
